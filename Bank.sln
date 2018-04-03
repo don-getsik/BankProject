@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank.Domain", "Bank.Domain\Bank.Domain.csproj", "{8A568D7A-72CD-4E90-88DF-518F3330B39B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank.WebUI", "Bank.WebUI\Bank.WebUI.csproj", "{72D688A4-EB3D-4D71-8AF6-DDFA816D5CCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A568D7A-72CD-4E90-88DF-518F3330B39B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A568D7A-72CD-4E90-88DF-518F3330B39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A568D7A-72CD-4E90-88DF-518F3330B39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A568D7A-72CD-4E90-88DF-518F3330B39B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D688A4-EB3D-4D71-8AF6-DDFA816D5CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D688A4-EB3D-4D71-8AF6-DDFA816D5CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D688A4-EB3D-4D71-8AF6-DDFA816D5CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D688A4-EB3D-4D71-8AF6-DDFA816D5CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AAAA447-2CE3-47EA-84F2-E32ED4E565F9}
+	EndGlobalSection
+EndGlobal

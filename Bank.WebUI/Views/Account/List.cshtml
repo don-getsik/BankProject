@@ -1,0 +1,13 @@
+﻿@using Bank.Domain.Entities
+@model IEnumerable<BankAccount>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+@foreach (var p in Model)
+{
+    <div><h3>@p.FirstName</h3></div>
+}
