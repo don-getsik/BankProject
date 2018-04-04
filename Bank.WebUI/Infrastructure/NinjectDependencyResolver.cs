@@ -29,7 +29,6 @@ namespace Bank.WebUI.Infrastructure
 
         private void AddBlindigs()
         {
-            _kernel.Bind<IBankAccountRepository>().To<EFBankAccountRepository>();
             _kernel.Bind<ITransctionsRepository>().To<EFTransactionsRepositiory>();
         }
     }

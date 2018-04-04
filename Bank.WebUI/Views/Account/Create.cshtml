@@ -1,0 +1,32 @@
+﻿@model Bank.WebUI.Models.CreateModel
+
+@{
+    ViewBag.Title = "Create account";
+}
+
+<h2>Create</h2>
+@Html.ValidationSummary(false)
+@using (Html.BeginForm()) {
+    <div>
+        <label>First Name</label>
+        @Html.TextBoxFor(x => x.FirstName)
+    </div>
+    <div>
+        <label>Last Name</label>
+        @Html.TextBoxFor(x => x.LastName)
+    </div>
+    <div>
+        <label>Pesel</label>
+        @Html.TextBoxFor(x => x.Pesel)
+    </div>
+    <div>
+        <label>User Name</label>
+        @Html.TextBoxFor(x => x.UserName)
+    </div>
+    <div>
+        <label>Password</label>
+        @Html.PasswordFor(x => x.Password)
+    </div>
+    <button type="submit">Create</button>
+    @Html.ActionLink("Cancel", "Index")
+}

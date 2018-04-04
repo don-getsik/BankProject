@@ -5,7 +5,6 @@ namespace Bank.Domain.Concrete
 {
     public class EFDbContext: DbContext
     {
-        public DbSet<BankAccount> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
     }
 }
