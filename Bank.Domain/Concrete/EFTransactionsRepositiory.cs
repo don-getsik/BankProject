@@ -8,5 +8,11 @@ namespace Bank.Domain.Concrete
     {
         private readonly EFDbContext _context = new EFDbContext();
         public IEnumerable<Transaction> Transactions => _context.Transactions;
+
+        public void SaveTransaction(Transaction transaction)
+        {
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+        }
     }
 }

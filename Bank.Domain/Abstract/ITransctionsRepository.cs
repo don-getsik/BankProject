@@ -6,5 +6,6 @@ namespace Bank.Domain.Abstract
     public interface ITransctionsRepository
     {
         IEnumerable<Transaction> Transactions { get; }
+        void SaveTransaction(Transaction transaction);
     }
 }

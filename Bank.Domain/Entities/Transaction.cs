@@ -9,9 +9,9 @@ namespace Bank.Domain.Entities
     {
         [Key]
         public int IdTransaction { get; set; }
-        public int Recesiver { get; set; }
-        public int Sender { get; set; }
-        public float Amount { get; set; }
+        public string Recesiver { get; set; }
+        public string Sender { get; set; }
+        public double Amount { get; set; }
         public DateTime Date { get; set; }
     }
 }

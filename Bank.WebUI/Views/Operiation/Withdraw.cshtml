@@ -1,0 +1,15 @@
+﻿@model Bank.WebUI.Models.WithDrawModel
+
+@{
+    ViewBag.Title = "Withdraw";
+}
+
+<h2>Withdraw</h2>
+
+<h2>Twój stan konta to: @ViewBag.balance</h2>
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Wypłać"/>
+    @Html.ActionLink("Anuluj", "Index","Account")
+}

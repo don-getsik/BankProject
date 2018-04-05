@@ -13,6 +13,6 @@ namespace Bank.Domain.Entities
         public double Balance { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public uint Pesel { get; set; }
+        public string Pesel { get; set; }
     }
 }
