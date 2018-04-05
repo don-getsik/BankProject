@@ -8,6 +8,6 @@ namespace Bank.WebUI.Models
 {
     public class WithDrawModel
     {
-        [Required] public double amount;
+        [Required] public decimal amount { get; set; }
     }
 }

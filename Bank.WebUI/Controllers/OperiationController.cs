@@ -13,44 +13,44 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace Bank.WebUI.Controllers
 {
+    [Authorize]
     public class OperiationController : Controller
     {
-        private readonly BankAccount _account;
+        private BankAccount GetAccount()
+        {
+            var id = HttpContext.User.Identity.GetUserId();
+            return BankManager.Users.Single(u => u.Id == id);
+        }
         private readonly ITransctionsRepository _transctions;
         private BankAccountMenager BankManager => HttpContext.GetOwinContext().GetUserManager<BankAccountMenager>();
 
         public OperiationController(ITransctionsRepository transctions)
         {
-//            var owinContext = HttpContext.GetOwinContext();
-//            var authManager = owinContext.Authentication;
-//            var user = authManager.User;
-//            var iden = user.Identity;
-            var id = HttpContext.User.Identity.GetUserId();
-            _account = BankManager.Users.Single(u => u.Id == id);
             _transctions = transctions;
         }
 
         // GET: Operiation
         public ActionResult Withdraw()
         {
-            var model = new WithDrawModel();
-            ViewBag.Balance = _account.Balance;
-            return View(model);
+            ViewBag.Balance = GetAccount().Balance;
+            return View();
         }
 
         [HttpPost]
-        public ActionResult WithDraw(WithDrawModel model)
+        public async Task<ActionResult> Withdraw(WithDrawModel model)
         {
             if (!ModelState.IsValid) return View(model);
             var transaction = new Transaction
             {
                 Recesiver = "0",
-                Sender = _account.Id,
+                Sender = GetAccount().Id,
                 Amount = model.amount,
                 Date = DateTime.Now.Date
             };
             _transctions.SaveTransaction(transaction);
-            _account.Balance -= model.amount;
+            BankAccount account = GetAccount();
+            account.Balance -= model.amount;
+            await BankManager.UpdateAsync(account);
             TempData["mesage"] = "Wypłata dokonana prawidłowo";
             return RedirectToAction("Index", "Account");
 

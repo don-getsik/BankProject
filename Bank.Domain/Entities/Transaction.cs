@@ -11,7 +11,7 @@ namespace Bank.Domain.Entities
         public int IdTransaction { get; set; }
         public string Recesiver { get; set; }
         public string Sender { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public DateTime Date { get; set; }
     }
 }

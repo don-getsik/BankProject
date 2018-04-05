@@ -10,7 +10,7 @@ namespace Bank.Domain.Entities
         [Key]
         public override string Id { get; set; }
         public override string UserName { get; set; }
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Pesel { get; set; }

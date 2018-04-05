@@ -75,6 +75,7 @@ namespace Bank.WebUI.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> Create(CreateModel model)
         {
             if (!ModelState.IsValid) return View(model);

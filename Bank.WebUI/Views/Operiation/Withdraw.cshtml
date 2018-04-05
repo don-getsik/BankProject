@@ -5,11 +5,13 @@
 }
 
 <h2>Withdraw</h2>
-
-<h2>Twój stan konta to: @ViewBag.balance</h2>
+<h3>Twój stan konta to: @ViewBag.balance</h3>
 @using (Html.BeginForm())
 {
-    @Html.EditorForModel()
+    <div>
+        <label>Kwota do wypłacenia: </label>
+        @Html.TextBoxFor(x => x.amount)
+    </div>
     <input type="submit" value="Wypłać"/>
     @Html.ActionLink("Anuluj", "Index","Account")
 }
