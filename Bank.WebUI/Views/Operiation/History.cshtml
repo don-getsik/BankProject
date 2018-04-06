@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Bank.Domain.Entities.Transaction>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>Historia transakcji</h2>
+
+@foreach (var t in Model)
+{
+<div>
+    @if (t.Recesiver == "0")
+    {
+        @:Wypłata
+    }
+    else
+    {
+        @:Wpłata
+    }
+    @:kwoty:
+    @t.Amount.ToString("c")
+    @:,dnia:
+    @t.Date.ToString("U")
+</div>
+}

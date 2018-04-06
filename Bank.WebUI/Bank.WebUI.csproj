@@ -182,8 +182,10 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\History.cshtml" />
+    <Content Include="Views\Operiation\History.cshtml" />
     <Content Include="Views\Operiation\Withdraw.cshtml" />
+    <Content Include="Views\Operiation\Deposit.cshtml" />
+    <Content Include="Views\Operiation\Transfer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Hoem\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bank.Domain\Bank.Domain.csproj">

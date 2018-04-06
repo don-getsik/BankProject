@@ -11,10 +11,12 @@
     <div>
         Your name: @Model.FirstName
         Your balance: @Model.Balance
+        Your Account number: @Model.Id
     </div>
 </div>
 @Html.ActionLink("Create", "Create", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("History", "History", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Historia", "History", "Operiation", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Wypłać środki", "Withdraw", "Operiation")
-
+@Html.ActionLink("Wpłać środki", "Deposit", "Operiation")
+@Html.ActionLink("Przelej środki", "Transfer", "Operiation")
 

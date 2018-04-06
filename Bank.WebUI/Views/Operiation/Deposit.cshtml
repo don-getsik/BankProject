@@ -1,0 +1,16 @@
+﻿@model Bank.WebUI.Models.WithDrawModel
+
+@{
+    ViewBag.Title = "Deposit";
+}
+
+<h2>Deposit</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        <label>Kwota do wpłacenia: </label>
+        @Html.TextBoxFor(x => x.amount)
+    </div>
+    <input type="submit" value="Wpłać" />
+    @Html.ActionLink("Anuluj", "Index", "Account")
+}

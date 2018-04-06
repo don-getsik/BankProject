@@ -2,28 +2,19 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Bank.Domain.Abstract;
 using Bank.Domain.Entities;
 using Bank.WebUI.Infrastructure;
 using Bank.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Host.SystemWeb;
-
 
 namespace Bank.WebUI.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly ITransctionsRepository _transctions;
         private BankAccountMenager BankManager => HttpContext.GetOwinContext().GetUserManager<BankAccountMenager>();
-
-        public AccountController(ITransctionsRepository transctions)
-        {
-            _transctions = transctions;
-        }
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -69,11 +60,6 @@ namespace Bank.WebUI.Controllers
             return View();
         }
 
-        public ViewResult History()
-        {
-            return View(_transctions.Transactions);
-        }
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Create(CreateModel model)
@@ -88,15 +74,9 @@ namespace Bank.WebUI.Controllers
             };
             var result = await BankManager.CreateAsync(account, model.Password);
             if (result.Succeeded) return RedirectToAction("Login");
-            AddErrorsFromResult(result);
+            foreach (var error in result.Errors) ModelState.AddModelError("", error);
 
             return View(model);
         }
-
-        private void AddErrorsFromResult(IdentityResult result)
-        {
-            foreach (var error in result.Errors) ModelState.AddModelError("",error);
-        }
-
     }
 }

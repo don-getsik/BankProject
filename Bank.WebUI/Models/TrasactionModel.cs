@@ -10,4 +10,10 @@ namespace Bank.WebUI.Models
     {
         [Required] public decimal amount { get; set; }
     }
+
+    public class TransferModel
+    {
+        [Required] public decimal amount { get; set; }
+        [Required] public string recesiver { get; set; }
+    }
 }
