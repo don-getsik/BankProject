@@ -186,6 +186,7 @@
     <Content Include="Views\Operiation\Withdraw.cshtml" />
     <Content Include="Views\Operiation\Deposit.cshtml" />
     <Content Include="Views\Operiation\Transfer.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

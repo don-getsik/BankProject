@@ -10,11 +10,11 @@
 {
     <div>
         <label>Kwota do wypłacenia: </label>
-        @Html.TextBoxFor(x => x.amount)
+        @Html.TextBoxFor(x => x.Amount)
     </div>
     <div>
         <label>Odbiorca</label>
-        @Html.TextBoxFor(x => x.recesiver)
+        @Html.TextBoxFor(x => x.Recesiver)
     </div>
     <input type="submit" value="Wypłać" />
     @Html.ActionLink("Anuluj", "Index", "Account")

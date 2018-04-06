@@ -30,7 +30,10 @@ namespace Bank.WebUI.Controllers
 
         public ViewResult History()
         {
-            return View(_transctions.Transactions);
+            ViewBag.Id = GetAccount().Id;
+            var transactions = _transctions.Transactions
+                .Where(t => t.Recesiver == ViewBag.Id || t.Sender == ViewBag.Id);
+            return View(transactions);
         }
 
         // GET: Operiation
@@ -44,15 +47,8 @@ namespace Bank.WebUI.Controllers
         public async Task<ActionResult> Withdraw(WithDrawModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            var transaction = new Transaction
-            {
-                Recesiver = "0",
-                Sender = GetAccount().Id,
-                Amount = model.amount,
-                Date = DateTime.Now.Date
-            };
-            _transctions.SaveTransaction(transaction);
-            await UpdateAmount(model.amount, "this", false);
+            MakeTransaction(model.Amount, sender: GetAccount().Id);
+            await UpdateAmount(model.Amount, "this", false);
             return RedirectToAction("Index", "Account");
         }
 
@@ -65,24 +61,9 @@ namespace Bank.WebUI.Controllers
         public async Task<ActionResult> Deposit(WithDrawModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            var transaction = new Transaction
-            {
-                Recesiver = GetAccount().Id,
-                Sender = "0",
-                Amount = model.amount,
-                Date = DateTime.Now.Date
-            };
-            _transctions.SaveTransaction(transaction);
-            await UpdateAmount(model.amount, "this", true);
+            MakeTransaction(model.Amount, recesiver: GetAccount().Id);
+            await UpdateAmount(model.Amount, "this", true);
             return RedirectToAction("Index", "Account");
-        }
-
-        private async Task UpdateAmount(decimal amount, string id, bool add)
-        {
-            var account = GetAccount(id);
-            if(add) account.Balance += amount;
-            else account.Balance -= amount;
-            await BankManager.UpdateAsync(account);
         }
 
         public ActionResult Transfer()
@@ -94,18 +75,30 @@ namespace Bank.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Transfer(TransferModel model)
         {
-            if (!ModelState.IsValid && GetAccount(model.recesiver) != null) return View(model);
+            if (!ModelState.IsValid && GetAccount(model.Recesiver) != null) return View(model);
+            MakeTransaction(model.Amount, model.Recesiver, GetAccount().Id);
+            await UpdateAmount(model.Amount, "this", false);
+            await UpdateAmount(model.Amount, model.Recesiver, true);
+            return RedirectToAction("Index", "Account");
+        }
+
+        private void MakeTransaction(decimal amount, string recesiver = "0", string sender = "0")
+        {
             var transaction = new Transaction
             {
-                Recesiver = GetAccount(model.recesiver).Id,
-                Sender = GetAccount().Id,
-                Amount = model.amount,
+                Recesiver = recesiver,
+                Sender = sender,
+                Amount = amount,
                 Date = DateTime.Now.Date
             };
             _transctions.SaveTransaction(transaction);
-            await UpdateAmount(model.amount, "this", false);
-            await UpdateAmount(model.amount, model.recesiver, true);
-            return RedirectToAction("Index", "Account");
+        }
+        private async Task UpdateAmount(decimal amount, string id, bool add)
+        {
+            var account = GetAccount(id);
+            if (add) account.Balance += amount;
+            else account.Balance -= amount;
+            await BankManager.UpdateAsync(account);
         }
     }
 }

@@ -78,5 +78,21 @@ namespace Bank.WebUI.Controllers
 
             return View(model);
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            var id = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserId();
+            var result = await BankManager.ChangePasswordAsync(id, model.OldPass, model.NewPass);
+            if(result.Succeeded) return Redirect("Index");
+            foreach (var error in result.Errors) ModelState.AddModelError("", error);
+            return View(model);
+        }
     }
 }

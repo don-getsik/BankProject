@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bank.WebUI.Models
 {
@@ -19,6 +15,11 @@ namespace Bank.WebUI.Models
     {
         [Required] public string UserName { get; set; }
         [Required] public string Password { get; set; }
+    }
 
+    public class ChangePasswordModel
+    {
+        [Required] public string OldPass { get; set; }
+        [Required] public string NewPass { get; set; }
     }
 }

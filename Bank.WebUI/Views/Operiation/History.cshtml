@@ -6,20 +6,38 @@
 
 <h2>Historia transakcji</h2>
 
-@foreach (var t in Model)
-{
-<div>
-    @if (t.Recesiver == "0")
+<table>
+    <thread>
+        <tr>
+            <td>Rodzaj transakcji</td>
+            <td>Konto wejściowe</td>
+            <td>Konto wyjściowe</td>
+            <td>Kwota</td>
+            <td>Data i godzina</td>
+        </tr>
+    </thread>
+    <tbody>
+    @foreach (var t in Model)
     {
-        @:Wypłata
+        <tr>
+            <td>
+                @if (t.Recesiver == "0") { 
+                    @:Wypłata z konta 
+                }
+                else if (t.Sender == "0") {
+                    @:Wpłata na konto
+                }
+                else {
+                    @:Przelew zewnętrzny
+                }
+            </td>
+            <td>@t.Recesiver</td>
+            <td>@t.Sender</td>
+            <td>@t.Amount</td>
+            <td>@t.Date.ToString("U")</td>
+        </tr>
     }
-    else
-    {
-        @:Wpłata
-    }
-    @:kwoty:
-    @t.Amount.ToString("c")
-    @:,dnia:
-    @t.Date.ToString("U")
-</div>
-}
+    </tbody>
+</table>
+
+
