@@ -1,32 +1,38 @@
 ﻿@model Bank.WebUI.Models.CreateModel
 
 @{
-    ViewBag.Title = "Create account";
+    Layout = "~/Views/Shared/NonLogedLayout.cshtml";
 }
 
-<h2>Create</h2>
-@Html.ValidationSummary(false)
-@using (Html.BeginForm()) {
-    <div>
-        <label>First Name</label>
-        @Html.TextBoxFor(x => x.FirstName)
+<div class="panel panel-success">
+    <div class="panel-heading text-center"><h4>Załóż konto</h4></div>
+    <div class="panel-body">
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary()
+            <div class="form-group">
+                <label>Twoje Imię:</label>
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Twoje Nazwisko:</label>
+                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Tesel Pesel:</label>
+                @Html.TextBoxFor(x => x.Pesel, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Twój unikalny Login:</label>
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Twóje prywatne Hasło:</label>
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+            </div>
+            <div class="text-center">
+                <input class="btn btn-success" type="submit" value="Zarejestruj sie!" />
+            </div>
+        }
     </div>
-    <div>
-        <label>Last Name</label>
-        @Html.TextBoxFor(x => x.LastName)
-    </div>
-    <div>
-        <label>Pesel</label>
-        @Html.TextBoxFor(x => x.Pesel)
-    </div>
-    <div>
-        <label>User Name</label>
-        @Html.TextBoxFor(x => x.UserName)
-    </div>
-    <div>
-        <label>Password</label>
-        @Html.PasswordFor(x => x.Password)
-    </div>
-    <button type="submit">Create</button>
-    @Html.ActionLink("Cancel", "Index")
-}
+</div>
+

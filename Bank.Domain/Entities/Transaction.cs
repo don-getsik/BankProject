@@ -13,5 +13,6 @@ namespace Bank.Domain.Entities
         public string Sender { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -3,9 +3,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="~/Stylesheet/Center.css" rel="stylesheet"/>
     <title>@ViewBag.Title - My ASP.NET Application</title>
 </head>
 <body>
-    <div>@RenderBody()</div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../Account/Index"><span class="glyphicon glyphicon-euro"></span> Nasz Super Bank!</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="../Transaction/History"><span class="glyphicon glyphicon-time"></span> Historia</a></li>
+            <li><a href="../Operiation/Deposit"><span class="glyphicon glyphicon-save"></span> Wpłata</a></li>
+            <li><a href="../Operiation/Withdraw"><span class="glyphicon glyphicon-open"></span> Wypłata</a></li>
+            <li><a href="../Operiation/Transfer"><span class="glyphicon glyphicon-transfer"></span> Przelew na inne konto</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="../Account/ChangePassword"><span class="glyphicon glyphicon-edit"></span> Zmień hasło</a></li>
+            <li><a href="../Account/Logout"><span class="glyphicon glyphicon-log-out"></span> Wyloguj się</a></li>
+        </ul>
+    </div>
+</nav>
+<div>@RenderBody()</div>
 </body>
 </html>

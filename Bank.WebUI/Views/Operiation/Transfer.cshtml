@@ -4,19 +4,27 @@
     ViewBag.Title = "Transfer";
 }
 
-<h2>Transfer</h2>
-<h3>Twój stan konta to: @ViewBag.balance</h3>
-@using (Html.BeginForm())
-{
-    <div>
-        <label>Kwota do wypłacenia: </label>
-        @Html.TextBoxFor(x => x.Amount)
-    </div>
-    <div>
-        <label>Odbiorca</label>
-        @Html.TextBoxFor(x => x.Recesiver)
-    </div>
-    <input type="submit" value="Wypłać" />
-    @Html.ActionLink("Anuluj", "Index", "Account")
-}
+<div class="col-centered">
+    <div class="panel">
+        <div class="panel-heading">
+            <h2>Przelew na inne konto</h2>
+        </div>
+        @Html.ValidationSummary()
 
+        @using (Html.BeginForm())
+        {
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>Kwota do przelewu: </label>
+                    @Html.TextBoxFor(x => x.Amount, new { @class = "form-control" })
+                    <label>Odbiorca: </label>
+                    @Html.TextBoxFor(x => x.Recesiver, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel-footer">
+                <input type="submit" value="Przelej" class="btn btn-primary" />
+                <input type="button" value="Anuluj" onclick="location.href='@Url.Action("Index","Account")'" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>

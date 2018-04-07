@@ -18,7 +18,7 @@ namespace Bank.WebUI.Controllers
         private BankAccount GetAccount(string id = "this")
         {
             if(id == "this") id = HttpContext.User.Identity.GetUserId();
-            return BankManager.Users.Single(u => u.Id == id);
+            return BankManager.Users.SingleOrDefault(u => u.Id == id);
         }
         private readonly ITransctionsRepository _transctions;
         private BankAccountMenager BankManager => HttpContext.GetOwinContext().GetUserManager<BankAccountMenager>();
@@ -26,14 +26,6 @@ namespace Bank.WebUI.Controllers
         public OperiationController(ITransctionsRepository transctions)
         {
             _transctions = transctions;
-        }
-
-        public ViewResult History()
-        {
-            ViewBag.Id = GetAccount().Id;
-            var transactions = _transctions.Transactions
-                .Where(t => t.Recesiver == ViewBag.Id || t.Sender == ViewBag.Id);
-            return View(transactions);
         }
 
         // GET: Operiation
@@ -46,8 +38,9 @@ namespace Bank.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Withdraw(WithDrawModel model)
         {
+            if (model.Amount > GetAccount().Balance) ModelState.AddModelError(string.Empty, "Podałeś kwotę większą niż posiadasz na koncie");
             if (!ModelState.IsValid) return View(model);
-            MakeTransaction(model.Amount, sender: GetAccount().Id);
+            MakeTransaction(model.Amount,"Withdraw", sender: GetAccount().Id);
             await UpdateAmount(model.Amount, "this", false);
             return RedirectToAction("Index", "Account");
         }
@@ -61,7 +54,7 @@ namespace Bank.WebUI.Controllers
         public async Task<ActionResult> Deposit(WithDrawModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            MakeTransaction(model.Amount, recesiver: GetAccount().Id);
+            MakeTransaction(model.Amount,"Deposit", recesiver: GetAccount().Id);
             await UpdateAmount(model.Amount, "this", true);
             return RedirectToAction("Index", "Account");
         }
@@ -75,21 +68,24 @@ namespace Bank.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Transfer(TransferModel model)
         {
-            if (!ModelState.IsValid && GetAccount(model.Recesiver) != null) return View(model);
-            MakeTransaction(model.Amount, model.Recesiver, GetAccount().Id);
+            if (model.Amount > GetAccount().Balance) ModelState.AddModelError(string.Empty, "Podałeś kwotę większą niż posiadasz na koncie");
+            if (GetAccount(model.Recesiver) == null) ModelState.AddModelError(string.Empty, "Podano nieprawidłowy numer konta");
+            if (!ModelState.IsValid) return View(model);
+            MakeTransaction(model.Amount,"Transfer", recesiver: model.Recesiver, sender: GetAccount().Id);
             await UpdateAmount(model.Amount, "this", false);
             await UpdateAmount(model.Amount, model.Recesiver, true);
             return RedirectToAction("Index", "Account");
         }
 
-        private void MakeTransaction(decimal amount, string recesiver = "0", string sender = "0")
+        private void MakeTransaction(decimal amount, string type, string recesiver = "0", string sender = "0")
         {
             var transaction = new Transaction
             {
                 Recesiver = recesiver,
                 Sender = sender,
                 Amount = amount,
-                Date = DateTime.Now.Date
+                Date = DateTime.Now.Date,
+                Type = type
             };
             _transctions.SaveTransaction(transaction);
         }

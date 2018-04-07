@@ -1,0 +1,36 @@
+﻿@model IEnumerable<string>
+
+<h3>Typ:</h3>
+<h4>
+    @Html.ActionLink("Wszystkie", "History", "Transaction", null,
+        new { @class = "" })
+</h4>
+
+<h4>
+    @Html.RouteLink("Wpłaty", new
+    {
+        controller = "Transaction",
+        action = "History",
+        category = "Deposit",
+        page = 1
+    })
+</h4>
+
+<h4>
+    @Html.RouteLink("Wypłaty", new
+    {
+        controller = "Transaction",
+        action = "History",
+        category = "Withdraw",
+        page = 1
+    })
+</h4>
+<h4>
+    @Html.RouteLink("Przelewy", new
+    {
+        controller = "Transaction",
+        action = "History",
+        category = "Transfer",
+        page = 1
+    })
+</h4>

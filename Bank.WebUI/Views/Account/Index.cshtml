@@ -5,18 +5,10 @@
 }
 
 <div>
-    <div>
-        User Accounts
-    </div>
-    <div>
-        Your name: @Model.FirstName
-        Your balance: @Model.Balance
-        Your Account number: @Model.Id
+    <div class="text-center">
+        <h2>Witaj @Model.FirstName!</h2>
+        <h3>Stan twojego konta to: @Model.Balance.ToString("c")</h3>
+        <h3>Numer twojego konta to: @Model.Id</h3>
     </div>
 </div>
-@Html.ActionLink("Create", "Create", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Historia", "History", "Operiation", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Wypłać środki", "Withdraw", "Operiation")
-@Html.ActionLink("Wpłać środki", "Deposit", "Operiation")
-@Html.ActionLink("Przelej środki", "Transfer", "Operiation")
 

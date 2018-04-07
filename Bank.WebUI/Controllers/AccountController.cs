@@ -19,6 +19,9 @@ namespace Bank.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            bool val = (System.Web.HttpContext.Current.User != null) &&
+                       System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (val) return Redirect("Index");
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -26,7 +29,7 @@ namespace Bank.WebUI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel details, string returnUrl)
+        public async Task<ActionResult> Login(string button, LoginModel details, string returnUrl)
         {
             if (!ModelState.IsValid) return View(details);
             var account = await BankManager.FindAsync(details.UserName, details.Password);
@@ -93,6 +96,12 @@ namespace Bank.WebUI.Controllers
             if(result.Succeeded) return Redirect("Index");
             foreach (var error in result.Errors) ModelState.AddModelError("", error);
             return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return Redirect("Login");
         }
     }
 }

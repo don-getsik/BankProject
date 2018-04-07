@@ -1,0 +1,57 @@
+﻿@model Bank.WebUI.Models.HistoryViewModel
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>Historia transakcji</h2>
+<div class="row panel">
+    <div id="categories" class="col-xs-1">
+        @Html.Action("Menu", "Nav")
+    </div>
+    <div class="col-xs-10">
+        <h1></h1>
+        <table class="table table-striped">
+            <thread>
+                <tr>
+                    <td>Rodzaj transakcji</td>
+                    <td>Konto wejściowe</td>
+                    <td>Konto wyjściowe</td>
+                    <td>Kwota</td>
+                    <td>Data i godzina</td>
+                </tr>
+            </thread>
+            <tbody>
+            @foreach (var t in Model.Transactions)
+            {
+                <tr>
+                    <td>
+                        @switch (t.Type)
+                        {
+                            case "Deposit":
+                                @:Wpłata na konto
+                                break;
+                            case "Withdraw":
+                                @:Wypłata z konta
+                                break;
+                            case "Transaction":
+                                @:Przelew
+                                break;
+                            default:
+                                @t.Type
+                                break;
+                        }
+                    </td>
+                    <td>@t.Recesiver</td>
+                    <td>@t.Sender</td>
+                    <td>@t.Amount</td>
+                    <td>@t.Date.ToString("U")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
